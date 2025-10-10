@@ -1,0 +1,35 @@
+pkgname=amneziawg-tools
+pkgver=1.0.20250903
+pkgrel=0
+pkgdesc="AmneziaWG tools"
+url="https://github.com/amnezia-vpn"
+arch="x86_64"
+license="GPL-2.0-only"
+maintainer="DP <rak1@oxff.me.in>"
+depends="iproute2 bash openresolv"
+source="
+amneziawg-tools-$pkgver.tar.gz::https://github.com/amnezia-vpn/amneziawg-tools/archive/refs/tags/v$pkgver.tar.gz
+awg-quick.init
+"
+options="!check"
+
+tool_srcdir="amneziawg-tools-$pkgver/src"
+
+build() {
+	cd $srcdir/$tool_srcdir
+	make
+}
+
+package() {
+	mkdir -p "$pkgdir"/usr/bin
+	mkdir -p "$pkgdir"/etc/amnezia/amneziawg
+	chmod 0700 "$pkgdir"/etc/amnezia/amneziawg
+	cp $srcdir/"$tool_srcdir"/wg "$pkgdir"/usr/bin/awg
+	cp $srcdir/"$tool_srcdir"/wg-quick/linux.bash "$pkgdir"/usr/bin/awg-quick
+	install -Dm755 "$srcdir"/awg-quick.init "$pkgdir"/etc/init.d/awg-quick
+}
+
+sha512sums="
+858f86d0b37de72356d3f8f80482516fa648a0e4b1467f2916eacf8d66919f2fc8a37223d439f022ff09a97aee87519a4b87b646049b9bec49bb31260942ff46  awg-quick.init
+a69f3911b18cd5abb73ba1f695802c87205ed6be10be035a5d06ca266c5de3c0b88c0aeac7670bc302112288f1b58937608e7b2835a22d2b4fc45a8f63b218ad  amneziawg-tools-$pkgver.tar.gz
+"
