@@ -1,6 +1,6 @@
 pkgname=amneziawg-akms
 pkgver="1.0.20251009"
-pkgrel=0
+pkgrel=1
 pkgdesc="Amneziawg 1.5 linux kernel module"
 license="GPL-2.0-only"
 url="https://amnezia.org"
@@ -11,9 +11,9 @@ depends="akms"
 source="amneziawg-linux-kernel-module-$pkgver.tar.gz::https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/archive/refs/tags/v1.0.20251009.tar.gz"
 builddir="amneziawg-linux-kernel-module-$pkgver"
 
-prepare() {
-	default_prepare
-	cat >AKMBUILD <<-EOF
+unpack() {
+	default_unpack
+	cat >$srcdir/AKMBUILD <<-EOF
 	modname=$pkgname
 	modver=$pkgver
 	built_modules="amneziawg.ko"
@@ -23,7 +23,7 @@ prepare() {
 package() {
 	local destdir="$pkgdir/usr/src/$pkgname-$pkgver"
 	local fromdir="$srcdir/amneziawg-linux-kernel-module-$pkgver/src"
-	install -Dm644 -t "$destdir" AKMBUILD
+	install -Dm644 -t "$destdir" $srcdir/AKMBUILD
 	cp -r $fromdir/* "$destdir"
 }
 
