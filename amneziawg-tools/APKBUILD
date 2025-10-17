@@ -1,9 +1,9 @@
 pkgname=amneziawg-tools
 pkgver=1.0.20250903
-pkgrel=0
+pkgrel=1
 pkgdesc="AmneziaWG tools"
 url="https://github.com/amnezia-vpn"
-arch="x86_64"
+arch="x86_64 aarch64"
 license="GPL-2.0-only"
 maintainer="DP <rak1@oxff.me.in>"
 depends="iproute2 bash openresolv"
