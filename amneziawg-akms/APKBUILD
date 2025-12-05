@@ -8,7 +8,7 @@ arch="x86_64"
 options="!check"
 maintainer="DP <rak1@oxff.me.in>"
 depends="akms"
-source="amneziawg-linux-kernel-module-$pkgver.tar.gz::https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/archive/refs/tags/v1.0.20251009.tar.gz"
+source="amneziawg-linux-kernel-module-$pkgver.tar.gz::https://github.com/amnezia-vpn/amneziawg-linux-kernel-module/archive/refs/tags/v${pkgver}.tar.gz"
 builddir="amneziawg-linux-kernel-module-$pkgver"
 
 unpack() {
