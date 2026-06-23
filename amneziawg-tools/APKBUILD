@@ -1,6 +1,7 @@
 pkgname=amneziawg-tools
-pkgver=1.0.20260223
-pkgrel=1
+pkgver=1.0.20260618
+fullver="${pkgver}-2"
+pkgrel=2
 pkgdesc="AmneziaWG tools"
 url="https://github.com/amnezia-vpn"
 arch="x86_64 aarch64"
@@ -8,12 +9,12 @@ license="GPL-2.0-only"
 maintainer="DP <rak1@oxff.me.in>"
 depends="iproute2 bash openresolv"
 source="
-amneziawg-tools-$pkgver.tar.gz::https://github.com/amnezia-vpn/amneziawg-tools/archive/refs/tags/v$pkgver.tar.gz
+amneziawg-tools-$fullver.tar.gz::https://github.com/amnezia-vpn/amneziawg-tools/archive/refs/tags/v$fullver.tar.gz
 awg-quick.init
 "
 options="!check"
 
-tool_srcdir="amneziawg-tools-$pkgver/src"
+tool_srcdir="amneziawg-tools-$fullver/src"
 
 build() {
 	cd $srcdir/$tool_srcdir
@@ -30,6 +31,6 @@ package() {
 }
 
 sha512sums="
-591afaef659e26be16c8d883da8d8ff026f855f60c9887440b566ef18b9948ca57754673d833f27e77d8c05f7e354f37b49adc9f5467334eeb7eda7165960c54  amneziawg-tools-1.0.20260223.tar.gz
+5f75260e9de307b1e20f403b5acaf044e0930557adfc1556d9fa04f96e776d73be261658d9aee21aec518c09fa98d4405ef663c8eb908ea76c84d184bf77ec53  amneziawg-tools-1.0.20260618-2.tar.gz
 858f86d0b37de72356d3f8f80482516fa648a0e4b1467f2916eacf8d66919f2fc8a37223d439f022ff09a97aee87519a4b87b646049b9bec49bb31260942ff46  awg-quick.init
 "

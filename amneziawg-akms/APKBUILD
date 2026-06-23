@@ -1,5 +1,5 @@
 pkgname=amneziawg-akms
-pkgver="1.0.20260322"
+pkgver="1.0.20260611"
 pkgrel=1
 pkgdesc="Amneziawg 2.0 linux kernel module"
 license="GPL-2.0-only"
@@ -28,5 +28,5 @@ package() {
 }
 
 sha512sums="
-bd409a36b4469b598cf4650f0e1f8efd8b8e6932f7924bfc64d8d3a2aae5d52fa4b3638c9039bc45f77e06af1103114cf249ca789f79c1b66553feb6d7a8eed6  amneziawg-linux-kernel-module-1.0.20260322.tar.gz
+3a99b7812b86087aa6f2c0af02a1c43aa6f540d025a1613d484930a99d3589c4ba2e6c2fb7f1b941357bf13855a56a220ff7c0688b22359f954b4dc689db0fdc  amneziawg-linux-kernel-module-1.0.20260611.tar.gz
 "
