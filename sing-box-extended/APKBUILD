@@ -1,0 +1,62 @@
+# Maintainer: DP <rak1@oxff.me.in>
+maintainer="DP <rak1@oxff.me.in>"
+pkgname=sing-box-extended
+boxver=1.13.14
+binver=2.5.0
+boxname="sing-box"
+pkgver="${boxver}.${binver}"
+pkgrel=0
+pkgdesc="The universal proxy platform. Extended version with Amnezia support. Created from binary."
+url="https://sing-box.sagernet.org/"
+arch="x86_64"
+license="GPL-3.0-or-later with name use or association addition"
+subpackages="$pkgname-openrc $pkgname-bash-completion $pkgname-fish-completion $pkgname-zsh-completion $pkgname-doc"
+options="net"
+depends="!sing-box 
+	so:libc.musl-x86_64.so.1
+	"
+source="$pkgname-$pkgver-bin.tar.gz::https://github.com/shtorm-7/sing-box-extended/releases/download/v$boxver-extended-$binver/sing-box-$boxver-extended-$binver-linux-amd64-musl.tar.gz
+	$pkgname-$pkgver-src.tar.gz::https://github.com/shtorm-7/sing-box-extended/archive/refs/tags/v$boxver-extended-$binver.tar.gz
+	$pkgname.initd
+	$pkgname.confd
+	"
+builddir=$pkgname
+
+unpack() {
+	default_unpack
+	mkdir $srcdir/$pkgname
+	## simply copy
+	cp $srcdir/$boxname-$boxver-extended-$binver-linux-amd64-musl/$boxname		$srcdir/$pkgname/
+	cp $srcdir/$boxname-$boxver-extended-$binver-linux-amd64-musl/LICENSE		$srcdir/$pkgname/
+	cp $srcdir/$boxname-extended-$boxver-extended-$binver/release/config/config.json	$srcdir/$pkgname/
+	cp -r $srcdir/$boxname-extended-$boxver-extended-$binver/examples			$srcdir/$pkgname/
+}
+
+build() {
+	cd $srcdir/$pkgname
+	install -d completions
+	./$boxname completion bash   > completions/bash
+	./$boxname completion fish   > completions/fish
+	./$boxname completion zsh    > completions/zsh
+}
+
+package() {
+	install -Dm644 $srcdir/$pkgname/LICENSE      -t "$pkgdir/usr/share/licenses/$pkgname"
+	install -Dm755 $srcdir/$pkgname/$boxname     -t "$pkgdir/usr/bin"
+	install -Dm644 $srcdir/$pkgname/config.json  -t "$pkgdir/etc/$pkgname"
+	install -Dm755 "$srcdir/$pkgname.initd" 		"$pkgdir/etc/init.d/$pkgname"
+	install -Dm755 "$srcdir/$pkgname.confd" 		"$pkgdir/etc/conf.d/$pkgname"
+	mkdir -p $pkgdir/usr/share/doc/
+	cp -r "$srcdir/$pkgname/examples"	            "$pkgdir/usr/share/doc/$pkgname-examples"
+
+	install -Dm644 $srcdir/$pkgname/completions/bash "$pkgdir/usr/share/bash-completion/completions/$pkgname.bash"
+	install -Dm644 $srcdir/$pkgname/completions/fish "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
+	install -Dm644 $srcdir/$pkgname/completions/zsh  "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
+}
+
+sha512sums="
+32f004534a442721b2d4866b917d1352569dad1d07b5b1a85793c41734e6b1f2d55d6094e4f2b2ad421ba92d6ad1cbf23a349b4e5f063b580014b040736b4a0d  sing-box-extended-1.13.14.2.5.0-bin.tar.gz
+72e580d7da31259c5de979e898ff3b02135e18676ee4cf57e79a917398dfb131cb3cf12a429c614d33e537d994ae40e4457b682e5aefe209d7cc0955a7152bf9  sing-box-extended-1.13.14.2.5.0-src.tar.gz
+c8e76403f0e27071a73415af5b8215c475679cbd8668704344f0d5e28b1de8586205ea6272c2b75c12ed2c1dcd191472c91619dac9633473c65c6018fe7594bd  sing-box-extended.initd
+4c818111bbc40abee0648dd7d33f8f71803b9d5a0276eaecad3ee171e678f9ff9154d516d9785d1c5f0fbb831c32538b4489357eee7e69d05b10d0116319a1ff  sing-box-extended.confd
+"
